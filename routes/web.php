@@ -4,6 +4,7 @@ use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PhotoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +48,14 @@ Route::get('/articles/{id}', function($id){
 Route::get('/about/{index}', function($index){
     return "Selamat Datang Di Pemograman Web Lanjut ".$index;
 });
+
+Route::resource('photos', PhotoController::class)->only(['index', 'show']);
+
+Route::resource('photos', PhotoController::class)->except(['create', 'store', 'update', 'destroy']);
+
+Route::get('/greeting', function () {
+    return view('blog.hello', ['name' => 'Galang']);
+    });
+
+    Route::get('/greeting', [WelcomeController::class,
+'greeting']);
